@@ -9,6 +9,7 @@ import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 
 import { insertSeedData } from './seed-data';
+import { sendPasswordResetEmail } from './lib/mail';
 
 const { withAuth } = createAuth({
   listKey: 'User',
@@ -20,7 +21,7 @@ const { withAuth } = createAuth({
   sessionData: `id name email`,
   passwordResetLink: {
     sendToken: async ({ itemId, identity, token, context }) => {
-      console.log({ itemId, identity, token });
+      await sendPasswordResetEmail(token, identity);
     },
     tokensValidForMins: 60,
   },
