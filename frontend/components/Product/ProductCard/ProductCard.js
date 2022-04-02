@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import formatMoney from '../../../lib/formatMoney';
+import { AddToCart } from '../../UI/CartUI';
 import DeleteProduct from '../DeleteProduct';
 
 import { ItemStyles, Title, PriceTag } from './ProductCard.styles';
@@ -25,6 +26,7 @@ const ProductCard = ({ id, name, photo, price, description }) => (
     <p>{description}</p>
     <div className="buttonList">
       <Link href={{ pathname: '/update', query: { id } }}>Edit ✏️</Link>
+      <AddToCart id={id} />
       <DeleteProduct id={id}>Delete</DeleteProduct>
     </div>
   </ItemStyles>

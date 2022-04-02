@@ -7,6 +7,8 @@ import { createAuth } from '@keystone-6/auth';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
+import { CartItem } from './schemas/CartItem';
+import { extendGraphqlSchema } from './mutations';
 
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
@@ -52,7 +54,9 @@ export default withAuth(
       User,
       Product,
       ProductImage,
+      CartItem,
     },
+    extendGraphqlSchema,
     session: statelessSessions({
       maxAge: 60 * 60 * 24 * 360, // How long they stay signed in?
       secret: config.get<string>('cookieSecret'),

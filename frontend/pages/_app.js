@@ -9,6 +9,8 @@ import '../components/styles/nprogress.css';
 import { Layout } from '../components/Common';
 import withData from '../lib/withData';
 
+import { CartStateProvider } from '../lib/cartState';
+
 function MyApp({ Component, pageProps, apollo }) {
   const router = useRouter();
 
@@ -26,9 +28,11 @@ function MyApp({ Component, pageProps, apollo }) {
 
   return (
     <ApolloProvider client={apollo}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <CartStateProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </CartStateProvider>
     </ApolloProvider>
   );
 }
