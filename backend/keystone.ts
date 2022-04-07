@@ -12,6 +12,8 @@ import { extendGraphqlSchema } from './mutations';
 
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
 
 const { withAuth } = createAuth({
   listKey: 'User',
@@ -55,6 +57,8 @@ export default withAuth(
       Product,
       ProductImage,
       CartItem,
+      Order,
+      OrderItem,
     },
     extendGraphqlSchema,
     session: statelessSessions({
