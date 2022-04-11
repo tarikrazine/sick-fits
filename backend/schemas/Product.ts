@@ -1,7 +1,16 @@
 import { list } from '@keystone-6/core';
 import { integer, relationship, select, text } from '@keystone-6/core/fields';
 
+import { isSignedIn, rules } from '../access';
+
 export const Product = list({
+  access: {
+    filter: {
+      update: rules.canManageProducts,
+      delete: rules.canManageProducts,
+      query: rules.canReadProducts,
+    },
+  },
   fields: {
     name: text({ validation: { isRequired: true } }),
     description: text({
@@ -32,5 +41,8 @@ export const Product = list({
       },
     }),
     price: integer({ validation: { isRequired: true } }),
+    user: relationship({
+      ref: 'User.products',
+    }),
   },
 });

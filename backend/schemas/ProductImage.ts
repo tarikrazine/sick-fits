@@ -3,6 +3,7 @@ import config from 'config';
 import { list } from '@keystone-6/core';
 import { text, relationship } from '@keystone-6/core/fields';
 import { cloudinaryImage } from '@keystone-6/cloudinary';
+import { isSignedIn, permissions } from '../access';
 
 export const cloudinary = {
   cloudName: config.get<string>('cloudinaryCloudName'),
@@ -12,6 +13,16 @@ export const cloudinary = {
 };
 
 export const ProductImage = list({
+  access: {
+    operation: {
+      create: isSignedIn,
+    },
+    filter: {
+      query: () => true,
+      update: permissions.canManageProducts,
+      delete: permissions.canManageProducts,
+    },
+  },
   fields: {
     image: cloudinaryImage({
       cloudinary,

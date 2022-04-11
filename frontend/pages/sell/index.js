@@ -1,5 +1,10 @@
+import PleaseSignIn from '../../components/Auth/PleaseSignIn';
 import { CreateProduct } from '../../components/Product';
 
 export default function SellPage() {
-  return <CreateProduct />;
+  return (
+    <PleaseSignIn>
+      <CreateProduct />;
+    </PleaseSignIn>
+  );
 }

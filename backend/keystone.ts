@@ -14,6 +14,8 @@ import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
+import { Role } from './schemas/Role';
+import { permissionsList } from './schemas/fields';
 
 const { withAuth } = createAuth({
   listKey: 'User',
@@ -22,7 +24,7 @@ const { withAuth } = createAuth({
   initFirstItem: {
     fields: ['name', 'email', 'password'],
   },
-  sessionData: `id name email`,
+  sessionData: `id name email role { ${permissionsList.join(' ')} }`,
   passwordResetLink: {
     sendToken: async ({ itemId, identity, token, context }) => {
       await sendPasswordResetEmail(token, identity);
@@ -59,6 +61,7 @@ export default withAuth(
       CartItem,
       Order,
       OrderItem,
+      Role,
     },
     extendGraphqlSchema,
     session: statelessSessions({
